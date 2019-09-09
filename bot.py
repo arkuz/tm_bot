@@ -1,6 +1,6 @@
 import os
 import logging
-import config as conf
+import config
 import actions as act
 
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
@@ -28,7 +28,7 @@ def main():
     logging.info('Стартует БОТ')
     dp = mybot.dispatcher
     dp.add_handler(CommandHandler('start', act.start_comand_handler))
-    dp.add_handler(CommandHandler('now', act.get_datetime_comand_handler))
+    dp.add_handler(CommandHandler('weather', act.weather_comand_handler))
     dp.add_handler(MessageHandler(Filters.text, act.send_mirror_message_handler))
     mybot.start_polling()
     mybot.idle()
