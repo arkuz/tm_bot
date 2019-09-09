@@ -1,6 +1,7 @@
+import os
 import logging
 import requests
-import datetime
+import config
 
 
 def start_comand_handler(bot, update):
@@ -24,23 +25,38 @@ def send_mirror_message_handler(bot, update):
     update.message.reply_text(user_text)
 
 
-def get_datetime_comand_handler(bot, update):
-    """ Функция отправляет пользователю время и дату в Москве. """
+def weather_comand_handler(bot, update):
+    """ Функция отправляет температуру в указанном городе """
+    text = update.message.text
+    length_cmd = update.message.entities[0].length  # узнаем длину сообщения
+    city = text[length_cmd + 1:].replace(' ','')    # забираем все после /weather и удаляем пробелы
+    params = {
+        'q': city,
+        'APPID': os.environ['WEATHER_API_KEY'],
+    }
+    url = 'http://api.openweathermap.org/data/2.5/weather'
+
     try:
-        resp = requests.get('https://time100.ru/api.php')
-        if resp.status_code == 200:
-            text = 'Вызвана команда /now'
-            value = datetime.datetime.fromtimestamp(int(resp.text))
-            cur_date = value.strftime('%d.%m.%Y')
-            cur_time = value.strftime('%H:%M:%S')
-            msg_text = 'Сейчас в Москве:\n     Время: {time}\n     Дата: {date}'.format(
-                time=cur_time,
-                date=cur_date
-            )
-            logging.info('{0} - {1}'.format(text, msg_text))
-            update.message.reply_text(msg_text)
-        else:
-            logging.error('Ошибка. Код ответа %s', resp.status_code)
-    except Exception:
-        logging.error('Ошибка - %s', Exception.message)
+        resp = requests.get(url, params=params)
+    except (requests.ConnectionError,
+            requests.ConnectTimeout,
+            ) as e:
+        logging.error('Ошибка {0}'.format(e.message))
+        return  # выходим из функции если ошибка соединения
+
+    if resp.status_code == 200:
+        kelvin = resp.json()['main']['temp']
+        degree = round(kelvin - 273)
+        msg_text = 'Сейчас {0} °C'.format(degree)
+        logging.info('{0} - {1}'.format(text, msg_text))
+    elif resp.status_code == 404 and resp.json()['message'] == 'city not found':
+        msg_text = 'Я не знаю такого города.'
+        logging.info('{0} - {1}'.format(text, msg_text))
+    elif resp.status_code == 400:
+        msg_text = 'Нужно указать город. Например /weather Moscow'
+        logging.info('{0} - {1}'.format(text, msg_text))
+    else:
+        logging.error('Ошибка. Сервер вернул код {0}'.format(resp.status_code))
+
+    update.message.reply_text(msg_text)
 
