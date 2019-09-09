@@ -9,3 +9,6 @@ os.environ['URL'] = 'socks5://'
 os.environ['USERNAME'] = ''
 os.environ['PASSWORD'] = ''
 
+# ключ API сервиса погоды https://openweathermap.org
+os.environ['WEATHER_API_KEY'] = ''
+
