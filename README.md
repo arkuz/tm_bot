@@ -4,7 +4,6 @@
 #### Структура проекта
  - bot.py - основной скрипт бота
  - actions.py - описание действий бота
- - config.py - настройки подключения к боту 
  
 #### Требования к ПО
 - Установленный Python 3.7
@@ -23,6 +22,18 @@ pip install -r requirements.txt
 ```
 
 #### Запуск
+
+Перед запуском бота необходимо заполнить переменные окружения с настройками ключей API и прокси.
+ - API_KEY - ключ для телеграм бота
+ - URL - адрес прокси
+ - USERNAME - имя пользователя для прокси
+ - PASSWORD - пароль для прокси
+ - WEATHER_API_KEY - ключ для сервиса погоды https://openweathermap.org
 ```bash
+set API_KEY=000000000:AAAAAAAAAAAAAAAAAAAAA
+set URL=socks5://testserver.ru:1080
+set USERNAME=user
+set PASSWORD=pass
+set WEATHER_API_KEY=aaaaaaaaaaaaaaaaaaaaaaaa
 python bot.py
 ```
