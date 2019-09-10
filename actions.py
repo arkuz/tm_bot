@@ -1,6 +1,5 @@
-import os
 import logging
-import requests
+import tools
 
 
 def start_comand_handler(bot, update):
