@@ -1,6 +1,5 @@
 import os
 import logging
-import config
 import actions as act
 
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
@@ -13,7 +12,6 @@ logging.basicConfig(format='%(asctime)s - %(levelname)s - %(message)s',
                     )
 
 
-# Формирование словаря PROXY из переменных окружения
 PROXY = {
     'proxy_url': os.environ['URL'],
     'urllib3_proxy_kwargs': {
@@ -28,7 +26,7 @@ def main():
     logging.info('Стартует БОТ')
     dp = mybot.dispatcher
     dp.add_handler(CommandHandler('start', act.start_comand_handler))
-    dp.add_handler(CommandHandler('weather', act.weather_comand_handler))
+    dp.add_handler(CommandHandler('weather', act.weather_comand_handler, pass_args=True))
     dp.add_handler(MessageHandler(Filters.text, act.send_mirror_message_handler))
     mybot.start_polling()
     mybot.idle()
