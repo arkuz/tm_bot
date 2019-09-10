@@ -15,7 +15,7 @@ def get_weather(city):
     except (requests.ConnectionError,
             requests.ConnectTimeout,
             ) as e:
-        logging.error('Ошибка {0}'.format(e.message))
+        logging.error('Ошибка {0}'.format(e))
         return None
 
 
@@ -39,4 +39,3 @@ def process_owm_response(text, response):
         logging.error('Ошибка. Сервер вернул код {0}'.format(response.status_code))
 
     return msg_text
-

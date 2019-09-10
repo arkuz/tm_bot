@@ -8,7 +8,7 @@ from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 # Формат для логирования
 logging.basicConfig(format='%(asctime)s - %(levelname)s - %(message)s',
                     level=logging.INFO,
-                    filename='bot.log'
+                    filename='bot.log',
                     )
 
 
@@ -17,7 +17,7 @@ PROXY = {
     'urllib3_proxy_kwargs': {
         'username': os.environ['USERNAME'],
         'password': os.environ['PASSWORD'],
-    }
+    },
 }
 
 
@@ -33,4 +33,3 @@ def main():
 
 
 main()
-
