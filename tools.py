@@ -4,7 +4,7 @@ import logging
 
 
 def get_weather(city):
-    """ Функция для получения температуры в городе city. """
+    """ Функция для получения ответа от сервиса openweathermap.org. """
     params = {
         'q': city,
         'APPID': os.environ['WEATHER_API_KEY'],
