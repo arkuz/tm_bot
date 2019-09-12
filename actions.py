@@ -1,5 +1,5 @@
 import logging
-import tools
+import owm_helpers
 
 
 def start_comand_handler(bot, update):
@@ -30,8 +30,10 @@ def weather_comand_handler(bot, update, args):
         msg_text = 'Необходимо указать город. Пример: /weather Москва'
         logging.info('{0} - {1}'.format(text, msg_text))
     else:
-        resp = tools.get_weather(args[0])
+        resp = owm_helpers.get_weather(args[0])
         if resp is None:
+            update.message.reply_text('Ошибка соединения с сервером openweathermap.org')
             return
-        msg_text = tools.process_owm_response(text, resp)
+        msg_text = owm_helpers.process_owm_response(resp)
+        logging.info('{0} - {1}'.format(text, msg_text))
     update.message.reply_text(msg_text)

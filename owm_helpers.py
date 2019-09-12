@@ -19,7 +19,7 @@ def get_weather(city):
         return None
 
 
-def process_owm_response(text, response):
+def process_owm_response(response):
     """ Функция для разбора результата функции get_weather. """
     if response.status_code in [200, 404]:
         resp_json_dict = response.json()
@@ -28,13 +28,10 @@ def process_owm_response(text, response):
         kelvin = resp_json_dict['main']['temp']
         degree = round(kelvin - 273)
         msg_text = 'Сейчас {0} °C'.format(degree)
-        logging.info('{0} - {1}'.format(text, msg_text))
     elif response.status_code == 404 and resp_json_dict['message'] == 'city not found':
         msg_text = 'Я не знаю такого города.'
-        logging.info('{0} - {1}'.format(text, msg_text))
     elif response.status_code == 400:
         msg_text = 'Нужно указать город. Например /weather Moscow'
-        logging.info('{0} - {1}'.format(text, msg_text))
     else:
         logging.error('Ошибка. Сервер вернул код {0}'.format(response.status_code))
 
