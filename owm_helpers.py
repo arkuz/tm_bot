@@ -30,8 +30,6 @@ def process_owm_response(response):
         msg_text = 'Сейчас {0} °C'.format(degree)
     elif response.status_code == 404 and resp_json_dict['message'] == 'city not found':
         msg_text = 'Я не знаю такого города.'
-    elif response.status_code == 400:
-        msg_text = 'Нужно указать город. Например /weather Moscow'
     else:
         logging.error('Ошибка. Сервер вернул код {0}'.format(response.status_code))
 
