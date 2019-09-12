@@ -26,8 +26,12 @@ def send_mirror_message_handler(bot, update):
 def weather_comand_handler(bot, update, args):
     """ Функция отправляет температуру в указанном городе. """
     text = update.message.text
-    resp = tools.get_weather(args[0])
-    if resp is None:
-        return
-    msg_text = tools.process_owm_response(text, resp)
+    if not args:
+        msg_text = 'Необходимо указать город. Пример: /weather Москва'
+        logging.info('{0} - {1}'.format(text, msg_text))
+    else:
+        resp = tools.get_weather(args[0])
+        if resp is None:
+            return
+        msg_text = tools.process_owm_response(text, resp)
     update.message.reply_text(msg_text)
