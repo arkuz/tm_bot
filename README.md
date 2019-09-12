@@ -1,3 +1,5 @@
+![https://travis-ci.org/arkuz/tm_bot.svg?branch=master](https://travis-ci.org/arkuz/tm_bot.svg?branch=master)
+
 #### Описание
 Данный репозиторий содержит тестовый проект - телеграм бот. Бот отправляет пользователю его же сообщение. Команда `/weather Moscow` возвращает температуру в указанном городе. Работа бота логируется и сохраняется в файл `bot.log`.
 
