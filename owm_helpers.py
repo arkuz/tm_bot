@@ -17,13 +17,13 @@ def process_owm_response(response):
     if response.status_code in [200, 404]:
         resp_json_dict = response.json()
 
-        if response:
-            kelvin = resp_json_dict['main']['temp']
-            degree = round(kelvin - 273)
-            answ_text = 'Сейчас {0} °C'.format(degree)
+    if response:
+        kelvin = resp_json_dict['main']['temp']
+        degree = round(kelvin - 273)
+        answ_text = 'Сейчас {0} °C'.format(degree)
 
-        if response.status_code == 404 and resp_json_dict['message'] == 'city not found':
-            answ_text = 'Я не знаю такого города.'
+    elif response.status_code == 404 and resp_json_dict['message'] == 'city not found':
+        answ_text = 'Я не знаю такого города.'
 
     else:
         answ_text = ('Ошибка. Сервер вернул код {0}'.format(response.status_code))
