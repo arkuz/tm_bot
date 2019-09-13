@@ -1,6 +1,5 @@
 import os
 import requests
-import logging
 
 
 def get_weather(city):
@@ -10,13 +9,7 @@ def get_weather(city):
         'APPID': os.environ['WEATHER_API_KEY'],
     }
     url = 'http://api.openweathermap.org/data/2.5/weather'
-    try:
-        return requests.get(url, params=params)
-    except (requests.ConnectionError,
-            requests.ConnectTimeout,
-            ) as e:
-        logging.error('Ошибка {0}'.format(e))
-        return None
+    return requests.get(url, params=params)
 
 
 def process_owm_response(response):
@@ -24,13 +17,15 @@ def process_owm_response(response):
     if response.status_code in [200, 404]:
         resp_json_dict = response.json()
 
-    if response.status_code == 200:
-        kelvin = resp_json_dict['main']['temp']
-        degree = round(kelvin - 273)
-        msg_text = 'Сейчас {0} °C'.format(degree)
-    elif response.status_code == 404 and resp_json_dict['message'] == 'city not found':
-        msg_text = 'Я не знаю такого города.'
-    else:
-        logging.error('Ошибка. Сервер вернул код {0}'.format(response.status_code))
+        if response:
+            kelvin = resp_json_dict['main']['temp']
+            degree = round(kelvin - 273)
+            answ_text = 'Сейчас {0} °C'.format(degree)
 
-    return msg_text
+        if response.status_code == 404 and resp_json_dict['message'] == 'city not found':
+            answ_text = 'Я не знаю такого города.'
+
+    else:
+        answ_text = ('Ошибка. Сервер вернул код {0}'.format(response.status_code))
+
+    return answ_text
