@@ -1,12 +1,11 @@
-![https://travis-ci.org/arkuz/tm_bot.svg?branch=master](https://travis-ci.org/arkuz/tm_bot.svg?branch=master)
-
+[![Build Status](https://travis-ci.org/arkuz/tm_bot.svg?branch=master)](https://travis-ci.org/arkuz/tm_bot)
 #### Описание
 Данный репозиторий содержит тестовый проект - телеграм бот. Бот отправляет пользователю его же сообщение. Команда `/weather Moscow` возвращает температуру в указанном городе. Работа бота логируется и сохраняется в файл `bot.log`.
 
 #### Структура проекта
  - bot.py - основной скрипт бота
  - actions.py - описание действий бота
- - owm_helpers.py - файл для вспомогательных функций
+ - owm_helpers.py - файл для вспомогательных функций owm
  
 #### Требования к ПО
 - Установленный Python 3.7
