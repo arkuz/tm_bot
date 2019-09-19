@@ -27,6 +27,7 @@ def main():
     dp = mybot.dispatcher
     dp.add_handler(CommandHandler('start', act.start_comand_handler))
     dp.add_handler(CommandHandler('weather', act.weather_comand_handler, pass_args=True))
+    dp.add_handler(CommandHandler('wordcount', act.wordcount_comand_handler, pass_args=True))
     dp.add_handler(MessageHandler(Filters.text, act.send_mirror_message_handler))
     mybot.start_polling()
     mybot.idle()

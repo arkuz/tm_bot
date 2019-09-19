@@ -1,10 +1,14 @@
 import owm_helpers
+import re
 from messages_helpers import send_text_to_user
 
 
 def start_comand_handler(bot, update):
     """ Функция отправляет ответ на команду /start. """
-    answ_text = 'Вот такой командой можно узнать погоду: /weather Москва'
+    answ_text = 'Я умею:\n' \
+                '1. /weather Москва - узнать температуру в городе\n' \
+                '2. /wordcount привет, как дела? - узнать количество слов в введенном сообщении\n' \
+                '3. А можете просто мне написать и я отвечу вам вашим же сообщением :-)'
     send_text_to_user(update, answ_text)
 
 
@@ -35,3 +39,22 @@ def weather_comand_handler(bot, update, args):
     else:
         answ_text = 'Ошибка соединения с сервером openweathermap.org'
         send_text_to_user(update, answ_text)
+
+
+def wordcount_comand_handler(bot, update, args):
+    """ Функция отправляет количество слов в пользовательском сообщении. """
+    if args:
+        count = 0
+        for arg in args:
+            arg = re.sub(r'([^a-zA-zа-яА-Я]+)', '', arg) # удаляем все, кроме букв
+            if len(arg) > 1: # если в длина строки в arg больше 1 буквы, то считать словом
+                count += 1
+        if count != 0:
+            answ_text = f'Количество слов в вашем предложении = {count}'
+        else:
+            answ_text = 'Я не вижу слов в вашем предложении'
+    else:
+        answ_text = 'Вы ввели пустую строку'
+
+    send_text_to_user(update, answ_text)
+
