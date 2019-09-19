@@ -5,10 +5,12 @@ from messages_helpers import send_text_to_user
 
 def start_comand_handler(bot, update):
     """ Функция отправляет ответ на команду /start. """
-    answ_text = 'Я умею:\n' \
-                '1. /weather Москва - узнать температуру в городе\n' \
-                '2. /wordcount привет, как дела? - узнать количество слов в введенном сообщении\n' \
-                '3. А можете просто мне написать и я отвечу вам вашим же сообщением :-)'
+    answ_text = """
+Я умею:
+1. /weather Москва - узнать температуру в городе
+2. /wordcount привет, как дела? - узнать количество слов в введенном сообщении
+3. А можете просто мне написать и я отвечу вам вашим же сообщением :-)
+"""
     send_text_to_user(update, answ_text)
 
 
@@ -46,8 +48,8 @@ def wordcount_comand_handler(bot, update, args):
     if args:
         count = 0
         for arg in args:
-            arg = re.sub(r'([^a-zA-zа-яА-Я]+)', '', arg) # удаляем все, кроме букв
-            if len(arg) > 1: # если в длина строки в arg больше 1 буквы, то считать словом
+            arg = re.sub(r'([^a-zA-zа-яА-Я]+)', '', arg)  # удаляем все, кроме букв
+            if len(arg) > 1:  # если в длина строки в arg больше 1 буквы, то считать словом
                 count += 1
         if count != 0:
             answ_text = f'Количество слов в вашем предложении = {count}'
@@ -57,4 +59,3 @@ def wordcount_comand_handler(bot, update, args):
         answ_text = 'Вы ввели пустую строку'
 
     send_text_to_user(update, answ_text)
-
