@@ -40,15 +40,17 @@ def load_user_db(user_filename):
 
 def is_invalid_end_symbol(city_name):
     """ Функция проверяет заканчивается ли слово на ['ь','ъ','ы']. """
-    return True if city_name.lower()[-1] in ['ь', 'ъ', 'ы'] else False
+    return True if city_name.lower()[-1] in ['ь', 'ъ', 'ы', 'й'] else False
 
 
 def concat_words(words_list):
     """ Функция собирает слова из списка в одну строку, форматирует и возвращает. """
     all_words_string = ''
+    if words_list[0] == 'start':
+        return words_list[0]
     if words_list:
         for arg in words_list:
-            all_words_string += f' {arg.capitalize()}'
+            all_words_string += f' {arg.lower()}'
     all_words_string = all_words_string.strip()
     return all_words_string
 
@@ -57,7 +59,7 @@ def get_city_from_bot(cities, user_city):
     """ Функция возвращает город или None. """
     for city in cities:
         user_city_last_symbol = user_city[-2] if is_invalid_end_symbol(user_city) else user_city[-1]
-        if city.lower()[0] == user_city_last_symbol:
+        if city[0] == user_city_last_symbol:
             try:  # на случай, когда город введенный пользователем уже удален из списка
                 user_city_index = cities.index(user_city)
                 cities.pop(user_city_index)
