@@ -72,18 +72,17 @@ def cities_comand_handler(bot, update, args):
     user_filename = os.path.join(cities_data, f'{username}_cities_base.json')
     cities_base = os.path.join(cities_data, user_filename)
 
-    # слово stop для остановки игры и переинициализации пользовательской базы городов
-    stop_game = args[0].lower() if args else None
-    if stop_game == 'stop':
-        answ_text = 'Как скажешь, в следующий раз начнем сначала'
-        send_text_to_user(update, answ_text)
-        cithelp.create_user_db(user_filename, cithelp.get_etalon_cities_list())
-        return
-
     user_city = cithelp.concat_words(args)
     if user_city is None:
         answ_text = 'Необходимо указать город. Пример: /cities Москва'
         send_text_to_user(update, answ_text)
+        return
+
+    # слово stop для остановки игры и переинициализации пользовательской базы городов
+    if user_city == 'stop':
+        answ_text = 'Как скажешь, в следующий раз начнем сначала'
+        send_text_to_user(update, answ_text)
+        cithelp.create_user_db(user_filename, cithelp.get_etalon_cities_list())
         return
 
     # создаем новый файл с городами для пользователя - новая игра
@@ -103,10 +102,9 @@ def cities_comand_handler(bot, update, args):
 
     # проверка, что введенный город есть в эталонном списке бота
     if user_city not in cithelp.get_etalon_cities_list():
-        if user_city not in cities:
-            answ_text = 'Я не знаю такого города.'
-            send_text_to_user(update, answ_text)
-            return
+        answ_text = 'Я не знаю такого города.'
+        send_text_to_user(update, answ_text)
+        return
 
     # бот проверяет, что наш город начинается на последнюю букву его города
     if user_city[0].lower() != last_symbol and last_symbol is not None:
