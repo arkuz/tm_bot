@@ -37,11 +37,13 @@ pip install -r requirements.txt
  - USERNAME - имя пользователя для прокси
  - PASSWORD - пароль для прокси
  - WEATHER_API_KEY - ключ для сервиса погоды https://openweathermap.org
+ - WORD_LEN - длина слова, используется для `/wordcount`, опциональный параметр, если не указывать, то по умолчанию равен 2
 ```bash
 set API_KEY=000000000:AAAAAAAAAAAAAAAAAAAAA
 set URL=socks5://testserver.ru:1080
 set USERNAME=user
 set PASSWORD=pass
 set WEATHER_API_KEY=aaaaaaaaaaaaaaaaaaaaaaaa
+set WORD_LEN=3
 python bot.py
 ```
