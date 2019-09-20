@@ -1,5 +1,7 @@
 import owm_helpers
 import re
+import os
+
 from messages_helpers import send_text_to_user
 
 
@@ -46,13 +48,13 @@ def weather_comand_handler(bot, update, args):
 def wordcount_comand_handler(bot, update, args):
     """ Функция отправляет количество слов в пользовательском сообщении. """
     if args:
-        count = 0
+        word_count = 0
         for arg in args:
             arg = re.sub(r'([^a-zA-zа-яА-Я]+)', '', arg)  # удаляем все, кроме букв
-            if len(arg) > 1:  # если в длина строки в arg больше 1 буквы, то считать словом
-                count += 1
-        if count != 0:
-            answ_text = f'Количество слов в вашем предложении = {count}'
+            if len(arg) >= int(os.getenv('WORD_LEN', '2')):  # длина слова определяется переменной окружения WORD_LEN
+                word_count += 1
+        if word_count != 0:
+            answ_text = f'Количество слов в вашем предложении = {word_count}'
         else:
             answ_text = 'Я не вижу слов в вашем предложении'
     else:
