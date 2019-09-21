@@ -108,4 +108,3 @@ def user_city_validation(user_city, cities, last_symbol):
         return f'Кто-то из нас уже называл город "{user_city}".'
 
     return None
-
