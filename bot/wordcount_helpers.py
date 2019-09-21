@@ -2,13 +2,13 @@ import os
 import re
 
 
-def get_word_count(text):
+def get_word_count(word_list):
     """ Функция возвращает количество слов в пользовательском сообщении. """
-    if not text:
+    if not word_list:
         return -1
 
     word_count = 0
-    for word in text:
+    for word in word_list:
         # удаляем все, кроме букв
         word = re.sub(r'([^a-zA-zа-яА-Я]+)', '', word)
         # минимальное кол-во букв в слове, определяется переменной окружения WORD_LEN
