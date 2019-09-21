@@ -4,6 +4,7 @@ import os
 
 from messages_helpers import send_text_to_user
 import cities_game_helpers as cithelp
+import wordcount_helpers as wordhelp
 
 
 def start_comand_handler(bot, update):
@@ -48,19 +49,8 @@ def weather_comand_handler(bot, update, args):
 
 def wordcount_comand_handler(bot, update, args):
     """ Функция отправляет количество слов в пользовательском сообщении. """
-    if args:
-        word_count = 0
-        for arg in args:
-            arg = re.sub(r'([^a-zA-zа-яА-Я]+)', '', arg)  # удаляем все, кроме букв
-            if len(arg) >= int(os.getenv('WORD_LEN', '2')):  # минимальное кол-во букв в слове, определяется переменной окружения WORD_LEN
-                word_count += 1
-        if word_count != 0:
-            answ_text = f'Количество слов в вашем предложении = {word_count}'
-        else:
-            answ_text = 'Я не вижу слов в вашем предложении'
-    else:
-        answ_text = 'Вы ввели пустую строку'
-
+    word_count = wordhelp.get_word_count(args)
+    answ_text = wordhelp.get_answer_text(word_count)
     send_text_to_user(update, answ_text)
 
 
