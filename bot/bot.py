@@ -29,6 +29,7 @@ def main():
     dp.add_handler(CommandHandler('weather', act.weather_comand_handler, pass_args=True))
     dp.add_handler(CommandHandler('wordcount', act.wordcount_comand_handler, pass_args=True))
     dp.add_handler(CommandHandler('cities', act.cities_comand_handler, pass_args=True))
+    dp.add_handler(CommandHandler('cities_stop', act.cities_stop_comand_handler))
     dp.add_handler(MessageHandler(Filters.text, act.send_mirror_message_handler))
     mybot.start_polling()
     mybot.idle()

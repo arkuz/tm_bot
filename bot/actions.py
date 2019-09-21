@@ -118,3 +118,10 @@ def cities_comand_handler(bot, update, args):
         answ_text = 'Я больше не знаю городов, давай начнем сначала'
         send_text_to_user(update, answ_text)
         cithelp.create_user_db(user_filename, cithelp.get_etalon_cities_list())
+def cities_stop_comand_handler(bot, update):
+    """ Функция останавливает игру в города, удаляет БД пользователя. """
+    username = update.message.chat.username
+    user_filename = os.path.join(cities_data, f'{username}_cities_base.json')
+    cithelp.delete_user_db(user_filename)
+    answ_text = 'Как скажешь, в следующий раз начнем сначала'
+    send_text_to_user(update, answ_text)
