@@ -105,4 +105,4 @@ venv.bak/
 .mypy_cache/
 
 bot.log
-config.py
+bot/config.py
