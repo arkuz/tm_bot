@@ -106,3 +106,5 @@ venv.bak/
 
 bot.log
 bot/config.py
+
+cities_data/*cities_base.json
