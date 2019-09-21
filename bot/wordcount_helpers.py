@@ -17,10 +17,11 @@ def get_word_count(text):
 
 def get_answer_text(code):
     """ Функция возвращает текст сообщения для ответа. """
-    if code == -1:
-        answ_text = 'Вы ввели пустую строку'
-    if code == 0:
-        answ_text = 'Я не вижу слов в вашем предложении'
-    if code > 0:
-        answ_text = f'Количество слов в вашем предложении = {code}'
-    return answ_text
+    msg_dict = {
+        -1: 'Вы ввели пустую строку',
+        0: 'Я не вижу слов в вашем предложении',
+    }
+    if code in msg_dict:
+        return msg_dict[code]
+    return f'Количество слов в вашем предложении = {code}'
+
