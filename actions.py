@@ -52,7 +52,7 @@ def wordcount_comand_handler(bot, update, args):
         word_count = 0
         for arg in args:
             arg = re.sub(r'([^a-zA-zа-яА-Я]+)', '', arg)  # удаляем все, кроме букв
-            if len(arg) >= int(os.getenv('WORD_LEN', '2')):  # длина слова определяется переменной окружения WORD_LEN
+            if len(arg) >= int(os.getenv('WORD_LEN', '2')):  # минимальное кол-во букв в слове, определяется переменной окружения WORD_LEN
                 word_count += 1
         if word_count != 0:
             answ_text = f'Количество слов в вашем предложении = {word_count}'
