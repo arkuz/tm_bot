@@ -40,10 +40,10 @@ def weather_comand_handler(bot, update, args):
     if resp is not None:
         answ_text = owm_helpers.process_owm_response(resp)
         send_text_to_user(update, answ_text)
+        return
 
-    else:
-        answ_text = 'Ошибка соединения с сервером openweathermap.org'
-        send_text_to_user(update, answ_text)
+    answ_text = 'Ошибка соединения с сервером openweathermap.org'
+    send_text_to_user(update, answ_text)
 
 
 def wordcount_comand_handler(bot, update, args):
