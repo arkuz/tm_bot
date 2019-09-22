@@ -1,6 +1,7 @@
 import pytest
 
-import wordcount_helpers as wh
+
+import bot.wordcount_helpers as wh
 
 
 @pytest.mark.parametrize('text,word_count', [
